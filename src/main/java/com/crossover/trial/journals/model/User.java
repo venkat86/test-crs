@@ -42,6 +42,17 @@ public class User {
 	@Cascade(CascadeType.ALL)
 	private List<Subscription> subscriptions;
 
+	@Column(name = "email", nullable = true)
+	private String email;
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getLoginName() {
 		return loginName;
 	}

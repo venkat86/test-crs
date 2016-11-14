@@ -49,6 +49,7 @@ public class PublisherController {
 	public String handleFileUpload(@RequestParam("name") String name, @RequestParam("category")Long categoryId, @RequestParam("file") MultipartFile file,
 			RedirectAttributes redirectAttributes, @AuthenticationPrincipal Principal principal) {
 
+		log.info("Entering the method to upload/publish");
 		CurrentUser activeUser = (CurrentUser) ((Authentication) principal).getPrincipal();
 		Optional<Publisher> publisher = publisherRepository.findByUser(activeUser.getUser());
 
@@ -66,12 +67,15 @@ public class PublisherController {
 				journal.setUuid(uuid);
 				journal.setName(name);
 				journalService.publish(publisher.get(), journal, categoryId);
+				log.info("Publshed succesfully - redirecting now");
 				return "redirect:/publisher/browse";
 			} catch (Exception e) {
+				log.error("Publish error occured :"+e.getMessage());
 				redirectAttributes.addFlashAttribute("message",
 						"You failed to publish " + name + " => " + e.getMessage());
 			}
 		} else {
+			log.error("Publish error occured : noting to publish - file empty");
 			redirectAttributes.addFlashAttribute("message",
 					"You failed to upload " + name + " because the file was empty");
 		}

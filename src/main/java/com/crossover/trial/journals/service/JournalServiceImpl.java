@@ -12,6 +12,7 @@ import com.crossover.trial.journals.model.Category;
 import com.crossover.trial.journals.model.Journal;
 import com.crossover.trial.journals.model.Publisher;
 import com.crossover.trial.journals.model.User;
+import com.crossover.trial.journals.notification.EmailNotificationUtil;
 import com.crossover.trial.journals.repository.CategoryRepository;
 import com.crossover.trial.journals.repository.UserRepository;
 import com.crossover.trial.journals.model.Subscription;
@@ -21,6 +22,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.crossover.trial.journals.repository.JournalRepository;
+import com.crossover.trial.journals.repository.SubscriptionRepository;
 
 @Service
 public class JournalServiceImpl implements JournalService {
@@ -29,6 +31,9 @@ public class JournalServiceImpl implements JournalService {
 
 	@Autowired
 	private JournalRepository journalRepository;
+	
+	@Autowired
+	private SubscriptionRepository subscriptionRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -52,6 +57,7 @@ public class JournalServiceImpl implements JournalService {
 	@Override
 	public List<Journal> publisherList(Publisher publisher) {
 		Iterable<Journal> journals = journalRepository.findByPublisher(publisher);
+		log.info("Journals from DB is :"+journals);
 		return StreamSupport.stream(journals.spliterator(), false).collect(Collectors.toList());
 	}
 
@@ -64,7 +70,23 @@ public class JournalServiceImpl implements JournalService {
 		journal.setPublisher(publisher);
 		journal.setCategory(category);
 		try {
-			return journalRepository.save(journal);
+			Journal journalNew = journalRepository.save(journal);
+			List<Subscription> subscriptions  = (List<Subscription>)subscriptionRepository.findByCategory(category);
+			if(subscriptions == null || subscriptions.size() ==0){
+				log.info("No subscribers present. Hence, email notification will not be sent");
+				return journalNew;
+			}
+			List<String> emailList = new ArrayList<String>();
+			for(Subscription sub: subscriptions){
+				log.info("Email added to the list is ==>"+sub.getUser().getEmail());
+				log.info("Email added to the list is ==>"+sub.getUser().getLoginName());
+				emailList.add(sub.getUser().getEmail());
+			}
+			log.debug("Before sending email - journal added");
+			EmailNotificationUtil.sendEmail("venkat.odesk86@gmail.com","New journal - "+journal.getName()+" - added", "A new journal has been added. Please check your inbox",emailList);
+			log.debug("After sending email - journal added");
+			//EmailNotificationUtil.sendEmail("venkat.odesk86@gmail.com","New journal - "+journal.getName()+" - added", "A new journal has been added. Please check your inbox",new String[]{"venkat86.careers@gmail.com", "venkat.odesk86@gmail.com"});
+			return journalNew;
 		} catch (DataIntegrityViolationException e) {
 			throw new ServiceException(e.getMessage(), e);
 		}
