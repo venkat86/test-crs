@@ -14,7 +14,7 @@ public class Application {
 	public static final String ROOT;
 
 	static {
-		ROOT = System.getProperty("upload-dir", "C:/Venkat tasks/Crossover/PDFs");
+		ROOT = System.getProperty("upload-dir", System.getProperty("user.home") + "/upload");
 	}
 
 	public static void main(String[] args) throws Exception {
