@@ -80,7 +80,8 @@ public class ScheduledTasks {
         }
         log.info("Email is being sent to : "+userEmailingList);
         
-        EmailNotificationUtil.sendEmail("venkat.odesk86@gmail.com", "Summary of Daily journals  ", (sb.toString()), userEmailingList);
+        EmailNotificationUtil util = new EmailNotificationUtil();
+        util.sendEmail("venkat.odesk86@gmail.com", "Summary of Daily journals  ", (sb.toString()), userEmailingList);
         log.info("The scheduled task to send email notificaitons - ends @ ", dateFormat.format(new Date()));
     }
 }

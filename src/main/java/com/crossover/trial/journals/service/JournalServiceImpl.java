@@ -86,9 +86,9 @@ public class JournalServiceImpl implements JournalService {
 				}
 			}
 			log.debug("Before sending email - journal added");
-			EmailNotificationUtil.sendEmail("venkat.odesk86@gmail.com","New journal - "+journal.getName()+" - added", "A new journal has been added. Please check your inbox",emailList);
+			EmailNotificationUtil util = new EmailNotificationUtil();
+			util.sendEmail("venkat.odesk86@gmail.com","New journal - "+journal.getName()+" - added", "A new journal has been added. Please check your inbox",emailList);
 			log.debug("After sending email - journal added");
-			//EmailNotificationUtil.sendEmail("venkat.odesk86@gmail.com","New journal - "+journal.getName()+" - added", "A new journal has been added. Please check your inbox",new String[]{"venkat86.careers@gmail.com", "venkat.odesk86@gmail.com"});
 			return journalNew;
 		} catch (DataIntegrityViolationException e) {
 			throw new ServiceException(e.getMessage(), e);

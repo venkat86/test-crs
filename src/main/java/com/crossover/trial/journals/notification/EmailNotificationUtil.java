@@ -31,7 +31,7 @@ public class EmailNotificationUtil {
 	 * @param content
 	 * @param toAddresses
 	 */
-	public static void sendEmail(String fromAddress,String subject, String content, List<String> toAddresses) {
+	public void sendEmail(String fromAddress,String subject, String content, List<String> toAddresses) {
 
 		log.debug("Entering the generic send email method");
 		// TODO Auto-generated method stub
