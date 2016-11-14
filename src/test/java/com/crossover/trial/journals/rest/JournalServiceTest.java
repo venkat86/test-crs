@@ -7,6 +7,21 @@ import static org.junit.Assert.fail;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
 import com.crossover.trial.journals.Application;
 import com.crossover.trial.journals.model.Journal;
 import com.crossover.trial.journals.model.Publisher;
@@ -15,14 +30,6 @@ import com.crossover.trial.journals.repository.PublisherRepository;
 import com.crossover.trial.journals.service.JournalService;
 import com.crossover.trial.journals.service.ServiceException;
 import com.crossover.trial.journals.service.UserService;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -40,6 +47,9 @@ public class JournalServiceTest {
 
 	@Autowired
 	private PublisherRepository publisherRepository;
+	
+	@Autowired
+    private WebApplicationContext webApplicationContext;
 
 	@Test
 	public void browseSubscribedUser() {
@@ -149,6 +159,18 @@ public class JournalServiceTest {
 		assertEquals(1, journals.size());
 		journals = journalService.listAll(getUser("user1"));
 		assertEquals(1, journals.size());
+	}
+
+	@Test
+	public void testSubscribe(){
+		User user = getUser("user1");
+		userService.subscribe(user, new Long(3));
+	}
+	@Test(expected = ServiceException.class)
+	public void testSubscribeFailure(){
+		User user = getUser("user1");
+		userService.subscribe(user, new Long(7));
+		
 	}
 
 	protected User getUser(String name) {

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ClassDiagram>
+    <Class name="com.crossover.trial.journals.model.Publisher" x="225" y="314">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.crossover.trial.journals.model.User"
+            endpointName="user" kind="Simple"/>
+    </Class>
+    <Class name="com.crossover.trial.journals.model.User" x="485" y="266">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.crossover.trial.journals.model.Subscription"
+            endpointName="subscriptions" kind="Simple"/>
+        <Association
+            destinationClassName="com.crossover.trial.journals.model.Role"
+            endpointName="role" kind="Simple"/>
+    </Class>
+    <Class name="com.crossover.trial.journals.model.Journal" x="440" y="41">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.crossover.trial.journals.model.Publisher"
+            endpointName="publisher" kind="Simple"/>
+        <Association
+            destinationClassName="com.crossover.trial.journals.model.Category"
+            endpointName="category" kind="Simple"/>
+    </Class>
+    <Class name="com.crossover.trial.journals.model.Category" x="117" y="59">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.crossover.trial.journals.model.Subscription" x="79" y="203">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Association
+            destinationClassName="com.crossover.trial.journals.model.Category"
+            endpointName="category" kind="Simple"/>
+        <Association
+            destinationClassName="com.crossover.trial.journals.model.User"
+            endpointName="user" kind="Simple"/>
+    </Class>
+    <Class name="com.crossover.trial.journals.model.Role" x="624" y="181">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+</ClassDiagram>

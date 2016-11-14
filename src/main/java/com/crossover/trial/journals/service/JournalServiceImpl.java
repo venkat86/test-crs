@@ -77,10 +77,13 @@ public class JournalServiceImpl implements JournalService {
 				return journalNew;
 			}
 			List<String> emailList = new ArrayList<String>();
+			String email = null;
 			for(Subscription sub: subscriptions){
-				log.info("Email added to the list is ==>"+sub.getUser().getEmail());
-				log.info("Email added to the list is ==>"+sub.getUser().getLoginName());
-				emailList.add(sub.getUser().getEmail());
+				email = sub.getUser().getEmail();
+				log.info("Email added to the list is ==>"+email);
+				if(email != null ){
+					emailList.add(email);	
+				}
 			}
 			log.debug("Before sending email - journal added");
 			EmailNotificationUtil.sendEmail("venkat.odesk86@gmail.com","New journal - "+journal.getName()+" - added", "A new journal has been added. Please check your inbox",emailList);

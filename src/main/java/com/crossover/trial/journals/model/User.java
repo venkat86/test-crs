@@ -45,6 +45,15 @@ public class User {
 	@Column(name = "email", nullable = true)
 	private String email;
 	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+	public User(String uname, String pass) {
+		// TODO Auto-generated constructor stub
+		this.loginName = uname;
+		this.pwd = pass;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
