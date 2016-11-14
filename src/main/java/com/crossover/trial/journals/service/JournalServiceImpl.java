@@ -87,6 +87,7 @@ public class JournalServiceImpl implements JournalService {
 			}
 			log.debug("Before sending email - journal added");
 			EmailNotificationUtil util = new EmailNotificationUtil();
+			// TODO: Externalize properties
 			util.sendEmail("venkat.odesk86@gmail.com","New journal - "+journal.getName()+" - added", "A new journal has been added. Please check your inbox",emailList);
 			log.debug("After sending email - journal added");
 			return journalNew;

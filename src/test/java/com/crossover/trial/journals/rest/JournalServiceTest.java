@@ -74,7 +74,7 @@ public class JournalServiceTest {
 		User user = getUser("publisher1");
 		Optional<Publisher> p = publisherRepository.findByUser(user);
 		List<Journal> journals = journalService.publisherList(p.get());
-		assertEquals(3, journals.size());
+		assertEquals(2, journals.size());
 
 		assertEquals(new Long(1), journals.get(0).getId());
 		assertEquals(new Long(2), journals.get(1).getId());
@@ -128,7 +128,7 @@ public class JournalServiceTest {
 		journals = journalService.publisherList(p.get());
 		assertEquals(2, journals.size());
 		assertEquals(new Long(3), journals.get(0).getId());
-		assertEquals(new Long(5), journals.get(1).getId());
+		assertEquals(new Long(4), journals.get(1).getId());
 		assertEquals("Health", journals.get(0).getName());
 		assertEquals(NEW_JOURNAL_NAME, journals.get(1).getName());
 		journals.stream().forEach(j -> assertNotNull(j.getPublishDate()));

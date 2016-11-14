@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
  * The purpose of this method is to send email notifications to a given email address(es)
  * 
  * @author venka
- *
+ * TODO: Externalize email properties
  */
 public class EmailNotificationUtil {
 
@@ -35,9 +35,9 @@ public class EmailNotificationUtil {
 
 		log.debug("Entering the generic send email method");
 		// TODO Auto-generated method stub
-
+		// replace with ur username and password
 		final String username = "venkat.odesk86@gmail.com";
-		final String password = "pvtltd456";
+		final String password = "****";
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
